@@ -122,37 +122,152 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		int numneighbors = 0;
 		int i = x;
 		int j = y;
-		if (i == 0 && j == 0|| i == 0 && j == 500 || i == 500 && j == 0 || i == 500 && j == 500) {
-			if (cell[]) {
-				
+		if (i == 0 && j == 0 || i == 0 && j == 49 || i == 49 && j == 0 || i == 49 && j == 49) {
+			if (i == 0 && j == 0) {
+				if (cell[i][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j].isAlive) {
+					numneighbors++;
+				}
+			}
+			if (i == 0 && j == 49) {
+				if (cell[i][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j].isAlive) {
+					numneighbors++;
+				}
+			}
+			if (i == 49 && j == 0) {
+				if (cell[i][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j].isAlive) {
+					numneighbors++;
+				}
+			}
+			if (i == 49 && j == 49) {
+				if (cell[i][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j].isAlive) {
+					numneighbors++;
+				}
+				return numneighbors;
 			}
 		}
-		if (i == 0 || j == 0 || i == 500 || j == 500) {
-			
-		} 
-		if (cell[i][j - 1].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i - 1][j - 1].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i + 1][j - 1].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i + 1][j].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i + 1][j + 1].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i - 1][j].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i][j + 1].isAlive) {
-			numneighbors++;
-		}
-		if (cell[i - 1][j + 1].isAlive) {
-			numneighbors++;
+		if (i == 0 || j == 0 || i == 49 || j == 49) {
+			if (i == 0 && j > 0 && j < 49) {
+				System.out.println(i);
+				System.out.println(j);
+				if (cell[i][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j].isAlive) {
+					numneighbors++;
+				}
+			}
+			if (i == 49 && j > 0 && j < 49) {
+				if (cell[i][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j + 1].isAlive) {
+					numneighbors++;
+				}
+			}
+			if (i > 0 && i < 49 && j == 0) {
+				if (cell[i + 1][j].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i][j + 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j + 1].isAlive) {
+					numneighbors++;
+				}
+			}
+			if (i > 0 && i < 49 && j == 49) {
+				if (cell[i][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j - 1].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i + 1][j].isAlive) {
+					numneighbors++;
+				}
+				if (cell[i - 1][j].isAlive) {
+					numneighbors++;
+				}
+				return numneighbors;
+			}
+		} else {
+
+			if (cell[i][j - 1].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i - 1][j - 1].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i + 1][j - 1].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i + 1][j].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i + 1][j + 1].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i - 1][j].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i][j + 1].isAlive) {
+				numneighbors++;
+			}
+			if (cell[i - 1][j + 1].isAlive) {
+				numneighbors++;
+			}
+			return numneighbors;
 		}
 		return numneighbors;
 	}
