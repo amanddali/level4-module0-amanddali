@@ -37,7 +37,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// passing in the location.
 		for (int i = 0; i < cell.length; i++) {
 			for (int j = 0; j < cell[0].length; j++) {
-				cell[i][j] = new Cell(i, j, cellSize);
+				cell[i][j] = new Cell(i * cellSize, j * cellSize, cellSize);
 			}
 		}
 
@@ -104,11 +104,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 8. check if each cell should live or die
 		for (int i = 0; i < cell.length; i++) {
 			for (int j = 0; j < cell[0].length; j++) {
-				if (livingNeighbors[i][j] > 0) {
-					cell[i][j].isAlive = true;
-				} else {
-					cell[i][j].isAlive = false;
-				}
+				cell[i][j].liveOrDie(getLivingNeighbors(i, j));
 			}
 		}
 		repaint();
@@ -120,154 +116,45 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// cell identified by x and y
 	public int getLivingNeighbors(int x, int y) {
 		int numneighbors = 0;
-		int i = x;
-		int j = y;
-		if (i == 0 && j == 0 || i == 0 && j == 49 || i == 49 && j == 0 || i == 49 && j == 49) {
-			if (i == 0 && j == 0) {
-				if (cell[i][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j].isAlive) {
-					numneighbors++;
-				}
-			}
-			if (i == 0 && j == 49) {
-				if (cell[i][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j].isAlive) {
-					numneighbors++;
-				}
-			}
-			if (i == 49 && j == 0) {
-				if (cell[i][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j].isAlive) {
-					numneighbors++;
-				}
-			}
-			if (i == 49 && j == 49) {
-				if (cell[i][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j].isAlive) {
-					numneighbors++;
-				}
-				return numneighbors;
+		if (x != 0) {
+			if (cell[x - 1][y].isAlive) {
+				numneighbors++;
 			}
 		}
-		if (i == 0 || j == 0 || i == 49 || j == 49) {
-			if (i == 0 && j > 0 && j < 49) {
-				System.out.println(i);
-				System.out.println(j);
-				if (cell[i][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j].isAlive) {
-					numneighbors++;
-				}
-			}
-			if (i == 49 && j > 0 && j < 49) {
-				if (cell[i][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j + 1].isAlive) {
-					numneighbors++;
-				}
-			}
-			if (i > 0 && i < 49 && j == 0) {
-				if (cell[i + 1][j].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i][j + 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j + 1].isAlive) {
-					numneighbors++;
-				}
-			}
-			if (i > 0 && i < 49 && j == 49) {
-				if (cell[i][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j - 1].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i + 1][j].isAlive) {
-					numneighbors++;
-				}
-				if (cell[i - 1][j].isAlive) {
-					numneighbors++;
-				}
-				return numneighbors;
-			}
-		} else {
-
-			if (cell[i][j - 1].isAlive) {
+		if (x != 49) {
+			if (cell[x + 1][y].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i - 1][j - 1].isAlive) {
+		}
+		if (y != 0) {
+			if (cell[x][y - 1].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i + 1][j - 1].isAlive) {
+		}
+		if (y != 49) {
+			if (cell[1][y + 1].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i + 1][j].isAlive) {
+		}
+		if (x != 0 && y != 0) {
+			if (cell[x - 1][y - 1].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i + 1][j + 1].isAlive) {
+		}
+		if (x != 0 && y != 49) {
+			if (cell[x - 1][y + 1].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i - 1][j].isAlive) {
+		}
+		if (x != 49 && y != 0) {
+			if (cell[x + 1][y - 1].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i][j + 1].isAlive) {
+		}
+		if (x != 49 && y != 49) {
+			if (cell[x + 1][y + 1].isAlive) {
 				numneighbors++;
 			}
-			if (cell[i - 1][j + 1].isAlive) {
-				numneighbors++;
-			}
-			return numneighbors;
 		}
 		return numneighbors;
 	}
@@ -294,7 +181,16 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 10. Use e.getX() and e.getY() to determine
 		// which cell is clicked. Then toggle
 		// the isAlive variable for that cell.
-
+		for (int i = 0; i < cell.length; i++) {
+			for (int j = 0; j < cell[0].length; j++) {
+				if (cell[i][j].getX() >= e.getX() && cell[i][j].getX() + cell.length <= e.getX()) {
+					cell[i][j].isAlive = !cell[i][j].isAlive;
+				}
+				if (cell[i][j].getY() >= e.getY() && cell[i][j].getY() + cell.length <= e.getY()) {
+					cell[i][j].isAlive = !cell[i][j].isAlive;
+				}
+			}
+		}
 		repaint();
 	}
 
