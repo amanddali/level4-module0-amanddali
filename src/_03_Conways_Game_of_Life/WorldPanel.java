@@ -132,7 +132,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 			}
 		}
 		if (y != 49) {
-			if (cell[1][y + 1].isAlive) {
+			if (cell[x][y + 1].isAlive) {
 				numneighbors++;
 			}
 		}
@@ -183,11 +183,18 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// the isAlive variable for that cell.
 		for (int i = 0; i < cell.length; i++) {
 			for (int j = 0; j < cell[0].length; j++) {
-				if (cell[i][j].getX() >= e.getX() && cell[i][j].getX() + cell.length <= e.getX()) {
-					cell[i][j].isAlive = !cell[i][j].isAlive;
-				}
-				if (cell[i][j].getY() >= e.getY() && cell[i][j].getY() + cell.length <= e.getY()) {
-					cell[i][j].isAlive = !cell[i][j].isAlive;
+				// if (cell[i][j].getX() <= e.getX() && cell[i][j].getX() + cell.length >=
+				// e.getX()) {
+				// cell[i][j].isAlive = !cell[i][j].isAlive;
+				// }
+				// if (cell[i][j].getY() <= e.getY() && cell[i][j].getY() + cell.length >=
+				// e.getY()) {
+				// cell[i][j].isAlive = !cell[i][j].isAlive;
+				// }
+				Cell c = cell[i][j];
+				if (e.getX() > c.getX() && e.getX() < (c.getX() + cellSize) && e.getY() > c.getY()
+						&& e.getY() < (c.getY() + cellSize)) {
+					c.isAlive = !c.isAlive;
 				}
 			}
 		}
